@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Card Clash - Alpine.js Version</title>
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container" x-data="game">
+        <div id="notification" class="notification" 
+             x-show="game.notification.show" 
+             x-text="game.notification.text" 
+             x-transition></div>
+    
+        <div class="status-row">
+            <div>
+                <h3>Player ♟️</h3>
+                HP: <span x-text="game.player.hp"></span><br>
+                Mana: <span x-text="game.player.mana"></span>
+            </div>
+            <div>
+                <h3>Enemy 👾</h3>
+                HP: <span x-text="game.enemyHP"></span>
+            </div>
+        </div>
+    
+        <div class="cards-row">
+            <template x-for="(card, index) in game.player.hand" :key="index">
+                <div class="card" @click="processClick(index)">
+                    <div class="emojis" x-text="card.split(' ')[0]"></div>
+                    <span x-text="card.split(' ')[1]"></span>
+                </div>
+            </template>
+            <div class="card next-card" @click="processClick(5)">
+                <div class="emojis" x-text="game.player.nextCard.split(' ')[0]"></div>
+                <span x-text="game.player.nextCard.split(' ')[1]"></span>
+            </div>
+        </div>
+    
+        <div class="controls">
+            <button @click="game.attack()">ATTACK!</button>
+        </div>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>
